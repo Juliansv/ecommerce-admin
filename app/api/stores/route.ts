@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
 
+//API endpoint for store creation
+
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
