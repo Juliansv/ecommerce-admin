@@ -134,6 +134,7 @@ model OrderItem {
   orderId   String
   order     Order   @relation(fields: [orderId], references: [id])
   productId String
+  quantity  String
   product   Product @relation(fields: [productId], references: [id])
 
   @@index([orderId])
