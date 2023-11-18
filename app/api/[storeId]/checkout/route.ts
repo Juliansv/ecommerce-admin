@@ -5,7 +5,7 @@ import prismadb from "@/lib/prismadb";
 
 interface Payload {
     id: string,
-    quantity: string
+    quantity: number
 }
 
 const corsHeaders = {
@@ -41,14 +41,20 @@ export async function POST(
 
     // Create the items array that is going to be passed to mercadopago
     const lineItems: MercadoPagoItems[] = []
+
+    const extractQuantity = ( id: String ) => {
+        const product = payload.filter((product: Payload) => product.id === id)
+        return product[0].quantity
+    }
     
     products.forEach((product) => {
-        // Extract the quantity for each product and then 
-        const quantity = payload.map((product: Payload) => (product.id === product.id ? product.quantity : 1))
+        // Extract the quantity for each product and then push it to the lineItems array
+        const quantity = extractQuantity(product.id) 
+        
         lineItems.push({
             id: product.id,
             title: product.name,
-            quantity: Number(quantity),
+            quantity: quantity,
             unit_price: Number(product.price),
             currency_id: 'ARS'
         })
