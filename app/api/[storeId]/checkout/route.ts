@@ -87,6 +87,9 @@ export async function POST(
             },
             'auto_return': 'all',
             'notification_url': `${process.env.NEXT_MP_NOTIFICATION_URL}/api/webhook`,
+            'metadata': {
+                'order_id': order.id
+            },
         },
         requestOptions: {},
     })

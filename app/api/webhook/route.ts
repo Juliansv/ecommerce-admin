@@ -16,15 +16,24 @@ export async function POST(req: Request) {
         if (id !== null) {
             try {
                 const data = await payment.get({ id: id })
-                console.log(data);
                 
                 
-                //update order status
-                // const order = await prismadb.order.update({
-                //     where: {
-                //         id: data.
-                //     }
-                // })
+                // update order status
+                const order = await prismadb.order.update({
+                    where: {
+                        id: data?.metadata?.order_id,
+                    },
+                    data: {
+                        isPaid: true,
+                        // Here we can add more data from the response
+                    },
+                    include: {
+                        orderItems: true,
+                    }
+                })
+
+                // update stock
+
             } catch (error) {
                 console.log("error has ocurred: ", error);
             }
