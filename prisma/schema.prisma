@@ -15,6 +15,7 @@ model Store {
   id         String      @id @default(uuid())
   name       String
   userId     String
+  slider     Slider[]    @relation("StoreToSlider")
   billboards Billboard[] @relation("StoreToBillboard")
   categories Category[]  @relation("StoreToCategory")
   sizes      Size[]      @relation("StoreToSize")
@@ -139,4 +140,16 @@ model OrderItem {
 
   @@index([orderId])
   @@index([productId])
+}
+
+model Slider {
+  id         String     @id @default(uuid())
+  storeId    String
+  store      Store      @relation("StoreToSlider", fields: [storeId], references: [id])
+  imageUrl   String
+  label      String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@index([storeId])
 }
