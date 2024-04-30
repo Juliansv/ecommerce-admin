@@ -6,9 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  directUrl         = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Store {
@@ -143,13 +143,13 @@ model OrderItem {
 }
 
 model Slider {
-  id         String     @id @default(uuid())
-  storeId    String
-  store      Store      @relation("StoreToSlider", fields: [storeId], references: [id])
-  imageUrl   String
-  label      String
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id        String   @id @default(uuid())
+  storeId   String
+  store     Store    @relation("StoreToSlider", fields: [storeId], references: [id])
+  imageUrl  String
+  label     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([storeId])
 }
